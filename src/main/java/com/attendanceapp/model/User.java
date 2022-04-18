@@ -2,7 +2,7 @@ package com.attendanceapp.model;
 
 import jakarta.persistence.*;
 
-@Entity(name = "Usermaster")
+@Entity
 @Table(name = "Usermaster")
 public class User
 {

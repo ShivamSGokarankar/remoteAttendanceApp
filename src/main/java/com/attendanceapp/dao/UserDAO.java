@@ -5,6 +5,7 @@ import com.attendanceapp.model.User;
 import com.attendanceapp.model.UserService;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.boot.registry.BootstrapServiceRegistryBuilder;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -25,12 +26,15 @@ public class UserDAO implements UserService {
             Session session = HibernateUtil.getSessionFactory().openSession();
             logFileCreator.WriteLog("Session created");
 
-            String SQL= "select @@version";
-            String result= (String) session.createNativeQuery(SQL).getSingleResult();
-            System.out.println(result);
+            Transaction transaction = session.beginTransaction();
+            session.save(u);
+            transaction.commit();
+            session.close();
+            session.close();
 
         } catch (Exception e) {
-           logFileCreator.WriteLog("Error Occured creating session");
+
+           logFileCreator.WriteLog("Error Occured creating session \n" + e.toString());
         }
     }
 
