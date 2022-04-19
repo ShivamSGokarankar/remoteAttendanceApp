@@ -3,6 +3,7 @@ package com.attendanceapp.Util;
 import com.logger.*;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -25,9 +26,11 @@ public class HibernateUtil
             if(serviceRegistry==null)
             {
                 logFileCreator=new  LogFileCreator("D:\\Logs");
-                configuration= new Configuration().configure();
-                serviceRegistry=new StandardServiceRegistryBuilder().applySettings(configuration.getProperties()).build();
-                sessionFactory=configuration.buildSessionFactory(serviceRegistry);
+                standardServiceRegistry= new StandardServiceRegistryBuilder()
+                        .configure()
+                        .build();
+                sessionFactory = new MetadataSources(standardServiceRegistry)
+                        .buildMetadata().buildSessionFactory();
             }
         } catch (HibernateException | IOException e) {
             logFileCreator.WriteLog("Error Occured while creating session Factory");
