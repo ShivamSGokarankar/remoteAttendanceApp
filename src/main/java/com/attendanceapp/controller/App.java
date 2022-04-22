@@ -15,6 +15,6 @@ public class App
         user1.setIsLoggedIn(0);
 
         UserDAO userDAO= new UserDAO();
-        userDAO.insertUser(user1);
+        System.out.println(userDAO.getUserById(1));
     }
 }

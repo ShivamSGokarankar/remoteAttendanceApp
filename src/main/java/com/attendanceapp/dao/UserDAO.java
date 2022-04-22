@@ -3,45 +3,63 @@ package com.attendanceapp.dao;
 import com.attendanceapp.Util.HibernateUtil;
 import com.attendanceapp.model.User;
 import com.attendanceapp.model.UserService;
-import com.logger.LogFileCreator;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.boot.registry.BootstrapServiceRegistryBuilder;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.Service;
+import org.hibernate.service.ServiceRegistry;
+import com.logger.*;
+
+import java.io.IOException;
 
 public class UserDAO implements UserService {
 
-
     private static Session session;
     private LogFileCreator logFileCreator=null;
-
-    @Override
-    public void insertUser(User u) {
+    {
         try {
             logFileCreator = new LogFileCreator("D:\\Logs");
             session = HibernateUtil.getSessionFactory().openSession();
-            logFileCreator.WriteLog("Session created");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public void insertUser(User u) {
+        try {
 
+
+            logFileCreator.WriteLog("Session created");
             Transaction transaction = session.beginTransaction();
             session.save(u);
             transaction.commit();
-            session.close();
 
         } catch (Exception e) {
-           logFileCreator.WriteLog("Error occurred creating session \n" + e.toString());
+
+           logFileCreator.WriteLog("Error Occured creating session \n" + e.toString());
         }
     }
 
     @Override
-    public User getUserById(int userid) {
-        return null;
+    public User getUserById(long userid) {
+        User user = null;
+        Transaction transaction = session.beginTransaction();
+        user=(User)session.get(User.class,userid);
+        transaction.commit();
+        return user;
     }
 
     @Override
-    public void updateUser(int userid) {
+    public void updateUser(long userid) {
 
     }
 
     @Override
-    public void deleteUser(int userid) {
+    public void deleteUser(long userid) {
 
     }
 }
