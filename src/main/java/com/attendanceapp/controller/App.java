@@ -11,10 +11,9 @@ public class App
         user1.setUser_id(101);
         user1.setUsername("shivam");
         user1.setPassword("smart@123");
-        user1.setUser_status(1);;
+        user1.setUser_status(1);
         user1.setIsLoggedIn(0);
 
-        UserDAO userDAO= new UserDAO();
-        System.out.println(userDAO.getUserById(1));
+
     }
 }

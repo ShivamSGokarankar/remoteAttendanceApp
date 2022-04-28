@@ -45,21 +45,21 @@ public class UserDAO implements UserService {
     }
 
     @Override
-    public User getUserById(long userid) {
+    public User getUser(String username) {
         User user = null;
         Transaction transaction = session.beginTransaction();
-        user=(User)session.get(User.class,userid);
+        user=(User)session.get(User.class,username);
         transaction.commit();
         return user;
     }
 
     @Override
-    public void updateUser(long userid) {
+    public void updateUser(String username) {
 
     }
 
     @Override
-    public void deleteUser(long userid) {
+    public void deleteUser(String username) {
 
     }
 }
