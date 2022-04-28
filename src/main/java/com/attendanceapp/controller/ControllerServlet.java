@@ -13,6 +13,13 @@ import java.io.IOException;
 public class ControllerServlet extends HttpServlet
 {
     HttpSession httpSession;
+    UserDAO userDAO;
+
+    @Override
+    public void init() throws ServletException {
+        userDAO= new UserDAO();
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -27,9 +34,9 @@ public class ControllerServlet extends HttpServlet
 
 
     private void validateUserLogin(HttpServletRequest request,HttpServletResponse response) throws IOException {
-        UserDAO userDAO= new UserDAO();
-        User user = userDAO.getUser(request.getParameter("username"));
-        response.getWriter().write(user.toString());
+
+        User user = userDAO.getUser("Shivam6");
+        //response.getWriter().write(user.toString());
 
         Gson data= new GsonBuilder().setPrettyPrinting().create();
         String jsonData= data.toJson(user);

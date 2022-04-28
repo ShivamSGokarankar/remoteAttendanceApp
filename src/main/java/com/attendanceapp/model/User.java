@@ -1,14 +1,12 @@
 package com.attendanceapp.model;
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Usermaster")
 public class User
 {
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long user_id;
     @Id
     private String username;
