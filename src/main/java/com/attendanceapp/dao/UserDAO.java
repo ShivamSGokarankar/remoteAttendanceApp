@@ -11,22 +11,34 @@ import java.io.IOException;
 
 public class UserDAO implements UserService {
 
+    public enum InfoMessage {
+        Hibernate_Session_Created,
+        Hibernate_SessionCreation_Failed,
+        Hibernate_Transaction_Failed,
+        Hibernate_Transaction_Committed,
+        Hibernate_Transaction_RollBacked,
+        Hibernate_Transaction_created;
+
+
+    }
+
     private static Session session;
     private LogFileCreator logFileCreator = null;
 
     {
         try {
             logFileCreator = new LogFileCreator("D:\\Logs");
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = HibernateUtil.getSessionFactory().getCurrentSession();
+            logFileCreator.WriteLog(InfoMessage.Hibernate_Session_Created.name());
         } catch (IOException e) {
-            e.printStackTrace();
+            logFileCreator.WriteLog(InfoMessage.Hibernate_SessionCreation_Failed.name());
         }
     }
 
     @Override
     public void insertUser(User u) {
         try {
-            logFileCreator.WriteLog("Session created");
+
             Transaction transaction = session.beginTransaction();
             session.save(u);
             transaction.commit();
@@ -38,12 +50,25 @@ public class UserDAO implements UserService {
     @Override
     public User getUser(String username) {
         User user = null;
-        Transaction transaction = session.beginTransaction();
-        user = (User) session.get(User.class, username);
-        transaction.commit();
-        return user;
-
-    }
+        Transaction transaction = null;
+        try {
+            transaction = session.beginTransaction();
+            transaction.begin();
+            logFileCreator.WriteLog(InfoMessage.Hibernate_Transaction_created.name());
+            user = (User) session.get(User.class, username);
+            transaction.commit();
+            logFileCreator.WriteLog(InfoMessage.Hibernate_Transaction_Committed.name());
+        }
+        catch(Exception e)
+        {
+            if (transaction!=null) transaction.rollback();
+            logFileCreator.WriteLog(InfoMessage.Hibernate_Transaction_Failed.name() + " " + InfoMessage.Hibernate_Transaction_RollBacked.name());
+        }
+        finally
+        {
+            return user;
+        }
+}
 
     @Override
     public void updateUser(String username) {
