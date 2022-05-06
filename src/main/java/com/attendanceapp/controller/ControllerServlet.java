@@ -1,6 +1,5 @@
 package com.attendanceapp.controller;
 
-import com.attendanceapp.dao.UserDAO;
 import com.attendanceapp.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,9 +12,7 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/api/*"})
 public class ControllerServlet extends HttpServlet {
-    HttpSession httpSession;
-    UserDAO userDAO;
-    LogFileCreator logFileCreator;
+
 
     public enum InfoMessage {
         User_Logged_In,
@@ -37,43 +34,16 @@ public class ControllerServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
-        userDAO = new UserDAO();
-        try {
-            logFileCreator = new LogFileCreator("D:\\Logs");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        final String path = request.getPathInfo();
 
-        String RequestBody = (request.getReader().lines().reduce("", String::concat)).replaceAll("\\s", "");
-        logFileCreator.WriteLog(InfoMessage.Request.toString() + " : " + RequestBody);
-        User user = new GsonBuilder().create().fromJson(RequestBody, User.class);
-
-        switch (path) {
-            case "/userlogin":
-                validateUserLogin(request, response, user);
-                break;
-        }
     }
 
     private void validateUserLogin(HttpServletRequest request, HttpServletResponse response, User u) throws IOException {
-        User user = userDAO.getUser(u.getUsername());
-        if(user!=null)
-        {
-            Gson data = new GsonBuilder().setPrettyPrinting().create();
-            String jsonData = data.toJson(user);
-            logFileCreator.WriteLog(InfoMessage.Response.toString() + " : " + jsonData.replaceAll("\\n", " ").replaceAll("\\s", ""));
-            response.getWriter().write(jsonData);
-        }
-        else
-        {
-            logFileCreator.WriteLog(InfoMessage.User_Not_Found.name());
-            response.getWriter().write(InfoMessage.User_Not_Found.name());
-        }
+
     }
 }
 
