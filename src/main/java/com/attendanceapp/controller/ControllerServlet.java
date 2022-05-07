@@ -1,5 +1,8 @@
 package com.attendanceapp.controller;
 
+import com.attendanceapp.DAO.UserDTO;
+import com.attendanceapp.Service.UserService;
+import com.attendanceapp.Util.InfoMessage;
 import com.attendanceapp.model.User;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -12,38 +15,54 @@ import java.io.IOException;
 
 @WebServlet(urlPatterns = {"/api/*"})
 public class ControllerServlet extends HttpServlet {
+        LogFileCreator l;
 
-
-    public enum InfoMessage {
-        User_Logged_In,
-        User_Found,
-        User_Not_Found,
-        Invalid_Username_OR_Password,
-        Request {
-            public String toString() {
-                return "Request JSON";
-            }
-        },
-        Response {
-            @Override
-            public String toString() {
-                return "Response JSON";
-            }
-        };
+    @Override
+    public void init() throws ServletException
+    {
+        try {
+            l=new LogFileCreator("D:\\logs");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void init() throws ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+    {
+        final String request_path=request.getPathInfo();
 
+        String RequestBody = (request.getReader().lines().reduce("", String::concat)).replaceAll("\\s", "");
+        l.WriteLog(InfoMessage.Request.toString() + " : " + RequestBody);
+        UserDTO userDTO = new GsonBuilder().create().fromJson(RequestBody,UserDTO.class);
+
+        switch (request_path)
+        {
+            case "/userlogin":
+                validateUser(userDTO);
+                break;
+        }
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
-
-    private void validateUserLogin(HttpServletRequest request, HttpServletResponse response, User u) throws IOException {
-
+    public void validateUser(UserDTO userDTO)
+    {
+        UserService service = new UserService();
+        try {
+            if(service.getUser(userDTO))
+            {
+                l.WriteLog(InfoMessage.User_Logged_In.name());
+            }
+            else
+            {
+                //redirect to login page
+                l.WriteLog(InfoMessage.User_Not_Found.name());
+                l.WriteLog(InfoMessage.Invalid_Username_OR_Password.name());
+            }
+        }
+        catch (NullPointerException e)
+        {
+            l.WriteLog(InfoMessage.Error_Occured_While_fetching_user.name());
+        }
     }
 }
 

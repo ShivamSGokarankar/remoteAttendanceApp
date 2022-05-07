@@ -1,11 +1,26 @@
 package com.attendanceapp.DAO;
 
+import com.attendanceapp.Util.HibernateUtil;
+import com.attendanceapp.Util.InfoMessage;
 import com.attendanceapp.model.User;
+import com.logger.LogFileCreator;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.validator.internal.util.logging.Log;
+
+import java.io.IOException;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
-
-
+    public static LogFileCreator l ;
+    static
+    {
+        try {
+               l =  new LogFileCreator("D:\\logs");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void createUser(User user)
     {
@@ -13,7 +28,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getUser(User user)
+    public List<User> getAllUsers(User user)
     {
         return null;
     }
@@ -27,6 +42,25 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void deleteUser(User user)
     {
+
+    }
+
+    @Override
+    public User getUser(User user) throws NullPointerException
+    {
+        User u=null;
+        Transaction tx=null;
+        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+        {
+            tx=session.beginTransaction();
+            l.WriteLog(InfoMessage.Hibernate_Transaction_created.name());
+            u=(User)session.get(User.class, user.getUsername());
+            tx.commit();
+            l.WriteLog(InfoMessage.Hibernate_Transaction_Committed.name());
+        }
+        finally {
+            return u;
+        }
 
     }
 }

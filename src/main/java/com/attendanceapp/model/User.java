@@ -15,6 +15,19 @@ public class User
     private int user_status;
     private int isLoggedIn;
 
+    public User()
+    {
+
+    }
+
+    public User(long user_id, String username, String password, int user_status, int isLoggedIn) {
+        this.user_id = user_id;
+        this.username = username;
+        this.password = password;
+        this.user_status = user_status;
+        this.isLoggedIn = isLoggedIn;
+    }
+
     public long getUser_id() {
         return user_id;
     }
@@ -65,7 +78,8 @@ public class User
                 ", isLoggedIn=" + isLoggedIn +
                 '}';
     }
-    public UserDTO toUserDTO(User user)
+
+    public UserDTO ConvertToUserDTO(User user)
     {
         UserDTO userDTO= new UserDTO();
         this.setUser_id(user.getUser_id());
@@ -74,7 +88,6 @@ public class User
         userDTO.setPassword(user.getPassword());
         userDTO.setIsLoggedIn(user.getIsLoggedIn());
         return userDTO;
-
     }
 
 
