@@ -1,15 +1,10 @@
-package com.attendanceapp.model;
+package com.attendanceapp.DAO;
 
+import com.attendanceapp.model.User;
 
-import com.attendanceapp.DAO.UserDTO;
-import jakarta.persistence.*;
-
-@Entity
-@Table(name = "Usermaster")
-public class User
+public class UserDTO
 {
     private long user_id;
-    @Id
     private String username;
     private String password;
     private int user_status;
@@ -57,7 +52,7 @@ public class User
 
     @Override
     public String toString() {
-        return "User{" +
+        return "UserDTO{" +
                 "user_id=" + user_id +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
@@ -65,17 +60,5 @@ public class User
                 ", isLoggedIn=" + isLoggedIn +
                 '}';
     }
-    public UserDTO toUserDTO(User user)
-    {
-        UserDTO userDTO= new UserDTO();
-        this.setUser_id(user.getUser_id());
-        userDTO.setUser_status(user.getUser_status());
-        userDTO.setUsername(user.getUsername());
-        userDTO.setPassword(user.getPassword());
-        userDTO.setIsLoggedIn(user.getIsLoggedIn());
-        return userDTO;
-
-    }
-
 
 }
