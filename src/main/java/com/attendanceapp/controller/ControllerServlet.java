@@ -51,10 +51,11 @@ public class ControllerServlet extends HttpServlet {
     {
         UserService service = new UserService();
         try {
-            if(service.getUser(userDTO)!=null)
+            UserDTO fetchedUserDTO=service.getUser(userDTO);
+            if(fetchedUserDTO!=null)
             {
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                String jsondata=gson.toJson(userDTO);
+                String jsondata=gson.toJson(fetchedUserDTO);
                 l.WriteLog(InfoMessage.User_Logged_In.name());
                 this.response.getWriter().write(jsondata);
             l.WriteLog(InfoMessage.Response.toString() + " : " + jsondata.replaceAll("\\s", ""));}

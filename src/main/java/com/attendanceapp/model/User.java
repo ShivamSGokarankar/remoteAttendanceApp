@@ -81,7 +81,7 @@ public class User
     public UserDTO ConvertToUserDTO(User user)
     {
         UserDTO userDTO= new UserDTO();
-        this.setUser_id(user.getUser_id());
+        userDTO.setUser_id(user.getUser_id());
         userDTO.setUser_status(user.getUser_status());
         userDTO.setUsername(user.getUsername());
         userDTO.setPassword(user.getPassword());
