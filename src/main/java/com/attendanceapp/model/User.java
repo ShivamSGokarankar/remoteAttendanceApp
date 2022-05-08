@@ -1,7 +1,6 @@
 package com.attendanceapp.model;
 
 
-import com.attendanceapp.DAO.UserDTO;
 import jakarta.persistence.*;
 
 @Entity

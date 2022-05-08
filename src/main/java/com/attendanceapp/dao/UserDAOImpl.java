@@ -1,4 +1,4 @@
-package com.attendanceapp.DAO;
+package com.attendanceapp.dao;
 
 import com.attendanceapp.Util.HibernateUtil;
 import com.attendanceapp.Util.InfoMessage;
@@ -6,21 +6,22 @@ import com.attendanceapp.model.User;
 import com.logger.LogFileCreator;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.validator.internal.util.logging.Log;
 
 import java.io.IOException;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
-    public static LogFileCreator l ;
-    static
+    public LogFileCreator l ;
+
     {
         try {
-               l =  new LogFileCreator("D:\\logs");
+            l =  new LogFileCreator("D:\\logs");
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
+
     @Override
     public void createUser(User user)
     {
@@ -50,7 +51,7 @@ public class UserDAOImpl implements UserDAO {
     {
         User u=null;
         Transaction tx=null;
-        try(Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+        try(Session session = HibernateUtil.getSessionFactory().openSession())
         {
             tx=session.beginTransaction();
             l.WriteLog(InfoMessage.Hibernate_Transaction_created.name());

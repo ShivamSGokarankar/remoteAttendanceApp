@@ -1,4 +1,4 @@
-package com.attendanceapp.DAO;
+package com.attendanceapp.dao;
 
 public class UserDAOFactory
 {

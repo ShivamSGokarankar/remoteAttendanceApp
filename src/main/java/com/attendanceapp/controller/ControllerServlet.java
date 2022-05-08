@@ -1,10 +1,8 @@
 package com.attendanceapp.controller;
 
-import com.attendanceapp.DAO.UserDTO;
+import com.attendanceapp.model.UserDTO;
 import com.attendanceapp.Service.UserService;
 import com.attendanceapp.Util.InfoMessage;
-import com.attendanceapp.model.User;
-import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.logger.LogFileCreator;
 import jakarta.servlet.*;
@@ -59,7 +57,7 @@ public class ControllerServlet extends HttpServlet {
                 l.WriteLog(InfoMessage.Invalid_Username_OR_Password.name());
             }
         }
-        catch (NullPointerException e)
+        catch (NullPointerException | NoClassDefFoundError e)
         {
             l.WriteLog(InfoMessage.Error_Occured_While_fetching_user.name());
         }

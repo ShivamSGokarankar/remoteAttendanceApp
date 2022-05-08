@@ -1,4 +1,4 @@
-package com.attendanceapp.DAO;
+package com.attendanceapp.dao;
 import com.attendanceapp.model.User;
 
 import java.util.List;

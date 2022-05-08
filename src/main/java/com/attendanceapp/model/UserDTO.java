@@ -1,6 +1,4 @@
-package com.attendanceapp.DAO;
-
-import com.attendanceapp.model.User;
+package com.attendanceapp.model;
 
 public class UserDTO
 {

@@ -1,16 +1,30 @@
 package com.attendanceapp.Service;
 
-import com.attendanceapp.DAO.UserDAO;
-import com.attendanceapp.DAO.UserDAOFactory;
-import com.attendanceapp.DAO.UserDTO;
+import com.attendanceapp.Util.InfoMessage;
+import com.attendanceapp.dao.UserDAO;
+import com.attendanceapp.dao.UserDAOFactory;
+import com.attendanceapp.model.UserDTO;
 import com.attendanceapp.model.User;
-import jakarta.validation.constraints.Null;
+import com.logger.LogFileCreator;
+import com.sun.source.tree.CatchTree;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public class UserService
 {
     public static UserDAO userDAO = UserDAOFactory.getInstance();
+    LogFileCreator l ;
+    {
+        try {
+                l=new LogFileCreator("D:\\logs");
+            }
+            catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     public boolean _insertUser(UserDTO userDTO)
     {
@@ -33,20 +47,22 @@ public class UserService
         return false;
     }
 
-    public boolean getUser(UserDTO userDTO) throws NullPointerException
-    {
-        String username =userDTO.getUsername();
+    public boolean getUser(UserDTO userDTO) throws NullPointerException,NoClassDefFoundError {
+        String username = userDTO.getUsername();
         String password = userDTO.getPassword();
-        User user=UserDTO.ConvertToUser(userDTO);
-        User fetchedUser=null;
-        fetchedUser=userDAO.getUser(user);
-        if(username.equals(fetchedUser.getUsername()) && password.equals(fetchedUser.getPassword()))
+        User user = UserDTO.ConvertToUser(userDTO);
+        User fetchedUser = null;
+        fetchedUser = userDAO.getUser(user);
+        if (fetchedUser != null)
         {
-            return true;
-        }
-        else
-        {
+            if (username.equals(fetchedUser.getUsername()) && password.equals(fetchedUser.getPassword()))
+            {
+                return true;
+            }
             return false;
+
         }
+        l.WriteLog(InfoMessage.User_Not_Found.name());
+        return false;
     }
 }
