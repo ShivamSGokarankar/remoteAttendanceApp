@@ -47,22 +47,24 @@ public class UserService
         return false;
     }
 
-    public boolean getUser(UserDTO userDTO) throws NullPointerException,NoClassDefFoundError {
+    public UserDTO getUser(UserDTO userDTO) throws NullPointerException,NoClassDefFoundError {
         String username = userDTO.getUsername();
         String password = userDTO.getPassword();
         User user = UserDTO.ConvertToUser(userDTO);
         User fetchedUser = null;
         fetchedUser = userDAO.getUser(user);
+        UserDTO fetchedUserDTO =null;
         if (fetchedUser != null)
         {
-            if (username.equals(fetchedUser.getUsername()) && password.equals(fetchedUser.getPassword()))
+            fetchedUserDTO=fetchedUser.ConvertToUserDTO(fetchedUser);
+            if (username.equals(fetchedUserDTO.getUsername()) && password.equals(fetchedUserDTO.getPassword()))
             {
-                return true;
+                return fetchedUserDTO;
             }
-            return false;
+            return null;
 
         }
         l.WriteLog(InfoMessage.User_Not_Found.name());
-        return false;
+        return null;
     }
 }
