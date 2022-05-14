@@ -47,7 +47,7 @@ public class UserService
         return false;
     }
 
-    public UserDTO getUser(UserDTO userDTO) throws NullPointerException,NoClassDefFoundError {
+    public UserDTO getUser(UserDTO userDTO) throws NullPointerException,NoClassDefFoundError,IllegalArgumentException {
         String username = userDTO.getUsername();
         String password = userDTO.getPassword();
         User user = UserDTO.ConvertToUser(userDTO);
@@ -67,4 +67,6 @@ public class UserService
         l.WriteLog(InfoMessage.User_Not_Found.name());
         return null;
     }
+
+
 }
