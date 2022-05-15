@@ -11,10 +11,14 @@ $(document).ready(function () {
                     username: $('#login_username').val(),
                     password: $('#login_password').val()
                 }),
-            contentType: 'applcation/json; charset=utf-8',
+            contentType: 'application/json; charset=utf-8',
             success: function (response) {
+                console.log(response);
                 $('#responseData').text(response);
+                var data =JSON.parse(response);
             }
         })
     })
+
+
 });

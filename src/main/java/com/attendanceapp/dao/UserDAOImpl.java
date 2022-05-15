@@ -65,7 +65,7 @@ public class UserDAOImpl implements UserDAO {
             TypedQuery query = session.createQuery("From com.attendanceapp.model.User where username =:username",User.class);
             query.setParameter("username",user.getUsername());
             list = (List<User>)query.getResultList();
-            u=list.get(0);
+            u=(list.size()!=0)?list.get(0):null;
             tx.commit();
             l.WriteLog(InfoMessage.Hibernate_Transaction_Committed.name());
         }

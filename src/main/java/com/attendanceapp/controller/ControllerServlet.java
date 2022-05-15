@@ -5,6 +5,8 @@ import com.attendanceapp.Service.UserService;
 import com.attendanceapp.Util.InfoMessage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.logger.LogFileCreator;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -54,17 +56,26 @@ public class ControllerServlet extends HttpServlet {
             UserDTO fetchedUserDTO=service.getUser(userDTO);
             if(fetchedUserDTO!=null)
             {
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                String jsondata=gson.toJson(fetchedUserDTO);
-                l.WriteLog(InfoMessage.User_Logged_In.name());
-                this.response.getWriter().write(jsondata);
-            l.WriteLog(InfoMessage.Response.toString() + " : " + jsondata.replaceAll("\\s", ""));}
+//                Gson gson = new GsonBuilder().create();
+//                String jsondata=gson.toJson(fetchedUserDTO);
+//                l.WriteLog(InfoMessage.User_Logged_In.name());
+//                this.response.getWriter().write(jsondata);
+//            l.WriteLog(InfoMessage.Response.toString() + " : " + jsondata.replaceAll("\\s", ""));
+                Gson gson = new Gson();
+                JsonElement jsonElement = gson.toJsonTree(fetchedUserDTO);
+                jsonElement.getAsJsonObject().addProperty("LoginFlag","TRUE");
+                this.response.getWriter().write(gson.toJson(jsonElement));
+
+            }
             else
             {
                 //redirect to login page
                 l.WriteLog(InfoMessage.User_Not_Found.name());
                 l.WriteLog(InfoMessage.Invalid_Username_OR_Password.name());
-                this.response.getWriter().write(InfoMessage.User_Not_Found.name());
+                Gson gson = new Gson();
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("LoginFlag","FALSE");
+                this.response.getWriter().write(gson.toJson(jsonObject));
             }
         }
         catch (NullPointerException a)
@@ -79,6 +90,11 @@ public class ControllerServlet extends HttpServlet {
         {
             l.WriteLog("Error occured while generating response.");
         }
+    }
+
+    public void redirectToHome()
+    {
+
     }
 }
 
