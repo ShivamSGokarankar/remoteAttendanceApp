@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p id="welcome">Welcome user </p>
+</body>
+</html>
+<script>
+    var data=sessionStorage.getItem('userdata');
+    data=JSON.parse(data);
+    document.getElementById('welcome').innerHTML+=data.username;
+</script>

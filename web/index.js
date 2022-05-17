@@ -16,6 +16,16 @@ $(document).ready(function () {
                 console.log(response);
                 $('#responseData').text(response);
                 var data =JSON.parse(response);
+                if(data.LoginFlag==='TRUE')
+                {
+                    sessionStorage.setItem('userdata',response);
+                    location.href='home.html';
+                }
+                else
+                {
+                    location.href='index.html';
+                }
+
             }
         })
     })

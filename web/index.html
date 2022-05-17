@@ -3,13 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="index.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="index.js"></script>
 </head>
 <body>
-Username :<input type="text" id ="login_username" name="username" value="Shivam8">
-Password:<input type="password" id="login_password" name="password" value="Smart@123">
-<input type="button" id="login_submit" value="Login" >
-<p id=responseData style="color: white"></p>
+<div class="header">
+    <div class="heading">
+        <span>Attendance App</span>
+    </div>
+    <div class="login-button"><input id="login-button" type="button" value="Login"></div>
+    <div class="signup-button"><input id="signup-button" type="button" value="Sign up"></div>
+</div>
+
+<div class="section">
+
+</div>
+<div class="footer">
+    <div class="copyright">
+        <span>@ShivamSGokagfdrankar</span>
+    </div>
+</div>
 </body>
 </html>
+<script>
+    $('#login-button').click(function ()
+    {
+        console.log('Loggin button clicked');
+        location.href='login.html';
+    })
+    $('#signup-button').click(function ()
+    {
+        console.log('Loggin button clicked');
+        location.href='signup.html';
+    })
+
+</script>
