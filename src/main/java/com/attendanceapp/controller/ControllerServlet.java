@@ -64,6 +64,7 @@ public class ControllerServlet extends HttpServlet {
                 Gson gson = new Gson();
                 JsonElement jsonElement = gson.toJsonTree(fetchedUserDTO);
                 jsonElement.getAsJsonObject().addProperty("LoginFlag","TRUE");
+                jsonElement.getAsJsonObject().remove("password");
                 l.WriteLog(InfoMessage.Response.name() + " : " + gson.toJson(jsonElement));
                 this.response.getWriter().write(gson.toJson(jsonElement));
 

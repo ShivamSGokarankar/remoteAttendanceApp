@@ -19,7 +19,7 @@ $(document).ready(function () {
                 if(data.LoginFlag==='TRUE')
                 {
                     sessionStorage.setItem('userdata',response);
-                    location.href='home.html';
+                    location.href='home.jsp';
                 }
                 else
                 {
