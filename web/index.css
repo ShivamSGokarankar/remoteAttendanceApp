@@ -1,84 +1,235 @@
-body
+body,html {
+    margin: 0px;
+    padding: 0px;
+    height: 100vh;
+    width: 100vw;
+}
+* {
+    box-sizing: border-box;
+}
+/*header part css*/
+.header
 {
-    margin: 0;
-    padding: 0;
-
-}
-.header{
-    width: 100%;
-    height: 10vh;
-    background-color: grey;
+    position: relative;
+    width: 100vw;
+    height: 10%;
+    background-color: rgb(255, 153, 0);
+    padding: 5px;
+    box-shadow: 0px 5px 3px rgb(114, 114, 114);
 }
 
-.header .heading
+.header>.navbar-container
 {
+    position: relative;
+    /* border: 1px solid black; */
+    display: block;
+    height: 100%;
+    min-width: 20%;
+    float: right;
 
-
+    /* text-align:center; */
+    /* padding:1% 0; */
 }
-.header .heading span
+.header>.navbar-container>.navbar
 {
-    color: white;
-    font-size: 40px;
-    font-family: Georgia;
-    padding: 0px 50px;
+    /* border: 1px solid rgb(17, 13, 13); */
+    display: inline-block;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
-
-.login-button
+.header>.navbar-container>.navbar>.login,.signup
 {
     display: inline-block;
-    position: absolute;
-    right: 130px;
-    top: 10px;
+    height: 35px;
+    width: 100px;
+    /* border: 1px solid red; */
+    /* margin: 0 4%; */
 }
-.signup-button
-{
-    display: inline-block;
-    position: absolute;
-    right: 10px;
-    top:10px;
-
-}
-.login-button>#login-button,
-.signup-button>#signup-button
+#login-button,#signup-button
 {
     display: block;
-    padding: 10px;
-    width: 100px;
-    transition-duration: 0.6s;
-    border: white;
+    width: 100%;
+    height: 100%;
+}
+.span
+{
+    display: inline-block;
+}
+
+#login-button,#signup-button
+{
+
+    border-radius: 10px;
+    border:2px solid white;
+    background-color: white;
+    box-shadow: 0px 5px 3px rgb(114, 114, 114);
+    /* border: 2px solid lightsalmon; */
+    transition: all ease;
+    transition-duration: 1s;
+}
+#login-button:hover
+,#signup-button:hover
+{
+    border:2px solid white;
+    box-shadow: 0px 0px 0px rgb(114, 114, 114);
+    color: black;
+    background-color: #ccc;
+    transition-duration: 0.5s;
+}
+/*section part css*/
+.section
+{
+    position: relative;
+    height: 70vh;
+    background-color: rgb(255, 255, 255);
+    /* border: 2px solid green; */
+}
+.section>.login-form-container
+{
+    /* display: inline-block; */
+    display: none;
+    border: 2px solid rgb(255, 153, 0);
+    position: relative;
+    width: 20%;
+    height: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 8px 20px 5px grey ;
+    transition: ease-in-out 2s;
     border-radius: 10px;
 }
 
-.signup-button>#signup-button:hover,
-.login-button>#login-button:hover
+.section>.login-form-container>.login-form-element
 {
-    background-color: black;
-    color: white;
-    transition-timing-function: ease-in-out;
-    transition-duration: 0.6s;
-    border: black;
-
+    width: 90%;
+    height:30px;
+    /* border: 2px solid pink; */
+    display: inline-block;
+    position: relative;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: left;
+    line-height: 30px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 18px;
+    color: rgb(71, 71, 71);
 }
 
-.section{
-    height: 80vh;
-    background-color: white;
-}
-
-.footer{
-height: 10vh;
-    background-color: grey;
-}
-.footer .copyright>span
+.section>.login-form-container>.login-form-element input
 {
-    color: white;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    padding:10px ;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    font-size: 21px;
 }
-.footer>span
-{
-    font-size: 50px;
 
+#show_password_label
+{
+    font-size: 12px;
+}
+.login-submitbutton
+{
+    display: inline-block;
+    margin: 20px;
+
+}
+.login-submitbutton input
+{
+    width: 170%;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 5px 2px grey;
+    border-radius: 10px;
+    border:2px solid rgb(19, 19, 19);
+    box-shadow: 0px 5px 3px rgb(114, 114, 114);
+    border: 2px solid lightsalmon;
+    transition: all ease;
+    transition-duration: 1s;
+}
+.login-submitbutton input:hover
+{
+    /* border:1px solid white;
+    box-shadow: 0px 0px 0px rgb(114, 114, 114);
+     color: black;
+    background-color: #ccc; */
+    background-color: rgb(214, 214, 214);
+    transition-duration: 0.5s;
+}
+
+.signup-form-container
+{
+    display: none;
+    border: 2px solid rgb(255, 153, 0);
+    width: 22%;
+    height: 70%;
+    position: relative;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    padding: 10px 10px;
+}
+.signup-form-element
+{
+    display: inline-block;
+    /* border: 1px solid green; */
+    width: 100%;
+    height: 12%;
+}
+
+.signup-form-element input
+{
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    font-size: 21px;
+    outline: none;
+}
+.signup-form-element-label
+{
+    padding:10px 0;
+    font-size: 18px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.signup-submit-button
+{
+    display: block;
+    padding: 10px 0;
+    position: relative;
+    float: right;
+}
+#show_password_label1
+{
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 12px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.signup-submit-button input
+{
+    width: 100px;
+    height: 30px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 5px 2px grey;
+    border-radius: 10px;
+    border:2px solid rgb(19, 19, 19);
+    box-shadow: 0px 5px 3px rgb(114, 114, 114);
+    border: 2px solid lightsalmon;
+    transition: all ease;
+    transition-duration: 1s;
+}
+.signup-submit-button input:hover
+{
+    background-color: rgb(214, 214, 214);
+    transition-duration: 0.5s;
+}
+/*footer part css*/
+.footer
+{
+    height: 20vh;
+    background-color: rgb(255, 153, 0);
 }
