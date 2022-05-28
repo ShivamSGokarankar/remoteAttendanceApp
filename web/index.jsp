@@ -3,9 +3,7 @@
 <head>
     <title>Title</title>
     <link href="index.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="index.js"></script>
 </head>
 <body>
 <div class="header">
@@ -13,7 +11,7 @@
         <div class="navbar">
             <div class="login"><input id="login-button" onclick="showLoginForm()" type="button" value="Login"></div>
             <div class="span"><span>OR</span></div>
-            <div class="signup"><input id="signup-button" type="button" value="Sign up"></div>
+            <div class="signup"><input id="signup-button"  onclick="showSignupForm();" type="button" value="Sign up"></div>
         </div>
     </div>
 </div>
@@ -24,7 +22,7 @@
         <div class="login-form-element"><input type="text" ></div>
         <div class="login-form-element password-label"><label>Password</label></div>
         <div class="login-form-element"><input id="password-field" type="password"><label id="show_password_label">Show password &nbsp</label><i id="" class="fa fa-eye fa-5xs" style="padding:0px 0px" onmouseup="hidepassword();" onmousedown="showpassword();"></i></div>
-        <div class="login-submitbutton"><input type="button" value="Login"></div>
+        <div id="login-submit" class="login-submitbutton"><input type="button" value="Login" ></div>
     </div>
     <div class="signup-form-container" id ="signup-form">
         <div class="signup-form-element-label">Username</div>
@@ -45,4 +43,7 @@
 
 </div>
 </body>
+
 </html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/index.js"></script>
