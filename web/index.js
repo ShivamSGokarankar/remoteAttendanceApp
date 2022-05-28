@@ -60,7 +60,8 @@
             document.getElementById('Confirm-password').style.borderColor= '';
         }
     }
-        document.getElementById('login-submit').onclick()=function () {
+
+         document.getElementById('login-submit').addEventListener("click",function(){
             {
                 console.log('button clicked');
                 $.ajax({
@@ -68,8 +69,8 @@
                     method: 'POST',
                     data: JSON.stringify(
                         {
-                            username: $('#login_username').val(),
-                            password: $('#login_password').val()
+                            username: $('#username-field').val(),
+                            password: $('#password-field').val()
                         }),
                     contentType: 'application/json; charset=utf-8',
                     success: function (response) {
@@ -80,10 +81,11 @@
                             sessionStorage.setItem('userdata', response);
                             location.href = 'home.jsp';
                         } else {
-                            location.href = 'index.jsp';
+                            alert("Incorrect username/password!");
+                            // location.href = 'index.jsp';
                         }
 
                     }
                 })
             }
-        }
+        });
