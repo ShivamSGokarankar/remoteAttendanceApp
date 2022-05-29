@@ -8,10 +8,12 @@
         {
             signupclicked.style.display='none';
             loginclicked.style.display='block';
+            loginclicked.style.animation='fade_in_show 1.5s';
         }
         else
         {
             loginclicked.style.display='block';
+            loginclicked.style.animation='fade_in_show 1.5s';
         }
         //document.getElementById('form-container').setAttribute("style","display:block;");
 
@@ -26,10 +28,13 @@
         {
             loginclicked.style.display='none';
             signupclicked.style.display='block';
+            signupclicked.style.animation='fade_in_show 1.5s';
         }
         else
         {
             signupclicked.style.display='block';
+            signupclicked.style.animation='fade_in_show 1.5s';
+
         }
     }
     function showpassword() {
@@ -59,6 +64,12 @@
         else{
             document.getElementById('Confirm-password').style.borderColor= '';
         }
+    }
+    function closeLoginForm(){
+    document.getElementById('form-container').style.display='none';
+    }
+    function closeSignupForm(){
+        document.getElementById('signup-form').style.display='none';
     }
 
          document.getElementById('login-submit').addEventListener("click",function(){

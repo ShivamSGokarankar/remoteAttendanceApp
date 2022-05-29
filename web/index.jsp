@@ -17,14 +17,14 @@
 </div>
 
 <div class="section">
-    <div class="login-form-container" id="form-container">
+    <div class="login-form-container" id="form-container"><i id="login-form-close-icon" class="fa fa-close" onclick="closeLoginForm();"></i>
         <div class="login-form-element username-label"><label>Username </label></div>
         <div class="login-form-element"><input type="text" id="username-field"></div>
         <div class="login-form-element password-label"><label>Password</label></div>
         <div class="login-form-element"><input id="password-field" type="password"><label id="show_password_label">Show password &nbsp</label><i id="" class="fa fa-eye fa-5xs" style="padding:0px 0px" onmouseup="hidepassword();" onmousedown="showpassword();"></i></div>
         <div id="login-submit" class="login-submitbutton"><input type="button" value="Login" ></div>
     </div>
-    <div class="signup-form-container" id ="signup-form">
+    <div class="signup-form-container" id ="signup-form"> <i id="signup-form-close-icon" class="fa fa-close"  onclick="closeSignupForm();"></i>
         <div class="signup-form-element-label">Username</div>
         <div class="signup-form-element"><input type="text"></div>
         <div class="signup-form-element-label">Password</div>
