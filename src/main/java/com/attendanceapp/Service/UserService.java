@@ -28,7 +28,9 @@ public class UserService
 
     public boolean _insertUser(UserDTO userDTO)
     {
-    return false;
+            User user=UserDTO.ConvertToUser(userDTO);
+            userDAO.createUser(user);
+            return true;
     }
 
     public List<UserDTO> _getUsers()

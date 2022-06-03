@@ -26,7 +26,7 @@
     </div>
     <div class="signup-form-container" id ="signup-form"> <i id="signup-form-close-icon" class="fa fa-close"  onclick="closeSignupForm();"></i>
         <div class="signup-form-element-label">Username</div>
-        <div class="signup-form-element"><input type="text"></div>
+        <div class="signup-form-element"><input id="username"type="text"></div>
         <div class="signup-form-element-label">Password</div>
         <div class="signup-form-element"><input id="password" type="password"></div>
         <div class="signup-form-element-label">Confirm Password</div>
@@ -34,7 +34,7 @@
             <label id="show_password_label1">Show password &nbsp</label>
             <i class="fa fa-eye fa-5xs" onmouseup="hideConfirmPassword();" onmousedown="showConfirmPassword();"></i></div>
         <span id='message'></span>
-        <div class="signup-submit-button"><input type="button" value="Sign Up"></div>
+        <div class="signup-submit-button"><input id="signup_submitbutton"type="button" value="Sign Up"></div>
 
     </div>
 </div>
@@ -43,7 +43,7 @@
 
 </div>
 </body>
-
-</html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/index.js"></script>
+</html>
+

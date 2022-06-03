@@ -46,6 +46,8 @@ public class ControllerServlet extends HttpServlet {
             case "/userlogin":
                 validateUser(userDTO);
                 break;
+            case "/usersignup":
+                registerUser(userDTO);
         }
     }
 
@@ -84,16 +86,32 @@ public class ControllerServlet extends HttpServlet {
         {
             l.WriteLog(InfoMessage.Error_Occured_While_fetching_user.name());
         }
-        catch (NoClassDefFoundError e)
-        {
-
-        }
         catch ( IOException e)
         {
             l.WriteLog("Error occured while generating response.");
         }
     }
 
+    public void registerUser(UserDTO userDTO) throws IOException {
+       UserService service = new UserService();
+       UserDTO fetchedUser= service.getUser(userDTO);
+       if(fetchedUser==null)
+       {
+            boolean flag=service._insertUser(userDTO);
+            if(flag)
+            {
+                response.getWriter().write("Registration successful");
+            }
+            else
+            {
+                response.getWriter().write("Error ocurred while registration. Please Try Again!");
+            }
+       }
+       else
+       {
+           response.getWriter().write("user already exists! Please login.");
+       }
+    }
     public void redirectToHome()
     {
 

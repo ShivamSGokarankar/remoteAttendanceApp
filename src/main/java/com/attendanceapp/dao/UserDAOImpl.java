@@ -29,7 +29,17 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public void createUser(User user)
     {
+        Transaction tx=null;
+        try(Session session = HibernateUtil.getSessionFactory().openSession())
+        {
+            tx=session.beginTransaction();
+            session.persist(user);
+            tx.commit();
+        }
+        catch (Exception e )
+        {
 
+        }
     }
 
     @Override
