@@ -267,6 +267,24 @@ body,html {
     font-size: 16px;
     color: #ab6347;
 }
+#alertbar
+{
+    display:none;
+    height:25px;
+    background-color:coral;
+    position:absolute;
+    margin-top: 20px;
+    margin-right: 5px;
+    top:0;
+    right: 0;
+    padding: 10px;
+    font-size: 20px;
+    text-align:center;
+    line-height:25px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: all 0.8s ;
+}
 /*footer part css*/
 .footer
 {

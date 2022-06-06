@@ -1,5 +1,7 @@
 
     console.log('dom loaded');
+    var l =document.getElementById("button");
+    var a =document.getElementById("alertbar");
     function showLoginForm() {
         var loginclicked = document.getElementById('form-container');
         var signupclicked = document.getElementById('signup-form');
@@ -114,8 +116,17 @@
                 }),
                 success: (response) => {
                     console.log(response);
+
+                    // l.addEventListener("click",()=>{
+                    //     setTimeout(()=>
+                    //         {a.style.transform="scaleX(0)";}
+                    //         ,1500)
+                    //     a.style.transform="scaleX(1)";
+                    // })
                 },
-                error: () => {
+                error: (response) => {
+                    console.log(typeof(response.responseJSON));
+                    console.log(JSON.stringify(response.responseJSON));
                     alert('error in Registered ! Please try again');
                 }
             }

@@ -35,7 +35,9 @@
             <i class="fa fa-eye fa-5xs" onmouseup="hideConfirmPassword();" onmousedown="showConfirmPassword();"></i></div>
         <span id='message'></span>
         <div class="signup-submit-button"><input id="signup_submitbutton"type="button" value="Sign Up"></div>
-
+        <div id="alertbar">
+            Registered succesfully!
+        </div>
     </div>
 </div>
 
