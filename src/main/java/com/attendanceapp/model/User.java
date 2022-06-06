@@ -7,12 +7,14 @@ import jakarta.persistence.*;
 @Table(name = "Usermaster")
 public class User
 {
+    @Id
+    @GeneratedValue(generator = "increment")
     private long user_id;
     @Id
     private String username;
     private String password;
-    private int user_status;
-    private int isLoggedIn;
+    private int user_status=1;
+    private int isLoggedIn=0;
 
     public User()
     {

@@ -95,26 +95,29 @@ public class ControllerServlet extends HttpServlet {
     public void registerUser(UserDTO userDTO) throws IOException {
        UserService service = new UserService();
        UserDTO fetchedUser= service.getUser(userDTO);
-       if(fetchedUser==null)
-       {
-            boolean flag=service._insertUser(userDTO);
-            if(flag)
-            {
-                response.getWriter().write("Registration successful");
-            }
-            else
-            {
-                response.getWriter().write("Error ocurred while registration. Please Try Again!");
-            }
-       }
-       else
-       {
-           response.getWriter().write("user already exists! Please login.");
-       }
-    }
-    public void redirectToHome()
-    {
+       response.setContentType("application/json");
+        try {
+            if (fetchedUser == null) {
+                boolean flag = service._insertUser(userDTO);
+                JsonObject jsonObject = new JsonObject();
 
+                if (flag) {
+                    jsonObject.addProperty("RegistrationFlag","TRUE");
+                } else {
+
+                    response.setStatus(400);
+                    jsonObject.addProperty("RegistrationFlag", "FALSE");
+                    this.response.getWriter().write(new Gson().toJson(jsonObject));
+                }
+            } else {
+                //response.getWriter().write("user already exists! Please login.");
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
+
 }
 

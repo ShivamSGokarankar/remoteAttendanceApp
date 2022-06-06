@@ -5,7 +5,7 @@
 <hibernate-configuration>
     <session-factory>
         <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
-        <property name="connection.url">jdbc:sqlserver://localhost:1433;databasename=AttendanceApp</property>
+        <property name="connection.url">jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;databasename=AttendanceApp</property>
         <property name="connection.username">sa</property>
         <property name="connection.password">Admin@123</property>
         <property name="hibernate.show_sql">true</property>

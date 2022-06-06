@@ -29,6 +29,7 @@ public class UserService
     public boolean _insertUser(UserDTO userDTO)
     {
             User user=UserDTO.ConvertToUser(userDTO);
+            user.setUser_status(1);
             userDAO.createUser(user);
             return true;
     }
@@ -37,7 +38,6 @@ public class UserService
     {
         return null;
     }
-
 
     public int _updateUser(UserDTO userDTO)
     {
