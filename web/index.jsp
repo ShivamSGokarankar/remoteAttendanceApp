@@ -6,7 +6,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
+
 <div class="header">
+    <div id="alertbar">
+
+    </div>
     <div class="navbar-container" >
         <div class="navbar">
             <div class="login"><input id="login-button" onclick="showLoginForm()" type="button" value="Login"></div>
@@ -35,9 +39,10 @@
             <i class="fa fa-eye fa-5xs" onmouseup="hideConfirmPassword();" onmousedown="showConfirmPassword();"></i></div>
         <span id='message'></span>
         <div class="signup-submit-button"><input id="signup_submitbutton"type="button" value="Sign Up"></div>
-        <div id="alertbar">
-            Registered succesfully!
-        </div>
+
+    </div>
+    <div id="alertbar">
+        Registered succesfully!
     </div>
 </div>
 

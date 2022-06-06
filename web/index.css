@@ -269,25 +269,28 @@ body,html {
 }
 #alertbar
 {
-    display:none;
-    height:25px;
-    background-color:coral;
+    display:inline-block;
+    height:50px;
     position:absolute;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-right: 5px;
     top:0;
     right: 0;
-    padding: 10px;
     font-size: 20px;
     text-align:center;
-    line-height:25px;
-    transform: scaleX(0);
-    transform-origin: right;
+    line-height:45px;
+    padding: 0px 45px ;
+    border: 1px solid white;
+    border-radius: 5px;
+    transform: scaleY(0);
+    transform-origin: top;
     transition: all 0.8s ;
+    z-index: 10;
 }
 /*footer part css*/
 .footer
 {
+    position: relative;
     height: 20vh;
     background-color: rgb(255, 153, 0);
 }

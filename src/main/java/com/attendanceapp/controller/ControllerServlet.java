@@ -97,20 +97,24 @@ public class ControllerServlet extends HttpServlet {
        UserDTO fetchedUser= service.getUser(userDTO);
        response.setContentType("application/json");
         try {
+            JsonObject jsonObject = new JsonObject();
             if (fetchedUser == null) {
                 boolean flag = service._insertUser(userDTO);
-                JsonObject jsonObject = new JsonObject();
+
 
                 if (flag) {
-                    jsonObject.addProperty("RegistrationFlag","TRUE");
+                    jsonObject.addProperty("RegistrationFlag","1");
+                    this.response.getWriter().write(new Gson().toJson(jsonObject));
                 } else {
 
                     response.setStatus(400);
-                    jsonObject.addProperty("RegistrationFlag", "FALSE");
+                    jsonObject.addProperty("RegistrationFlag", "0");
                     this.response.getWriter().write(new Gson().toJson(jsonObject));
                 }
             } else {
-                //response.getWriter().write("user already exists! Please login.");
+                response.setStatus(400);
+                jsonObject.addProperty("RegistrationFlag", "-1");
+                this.response.getWriter().write(new Gson().toJson(jsonObject));
             }
         }
         catch (Exception e)

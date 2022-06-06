@@ -1,7 +1,8 @@
-
-    console.log('dom loaded');
-    var l =document.getElementById("button");
-    var a =document.getElementById("alertbar");
+const RegsitractionSuccessMsg='Registered succesfully!';
+const RegistrationFailMsg='Error occured .Please Try Again!';
+const RegistrationAlertMsg='User already Registered, Please login!'
+var l =document.getElementById("button");
+var a =document.getElementById("alertbar");
     function showLoginForm() {
         var loginclicked = document.getElementById('form-container');
         var signupclicked = document.getElementById('signup-form');
@@ -96,7 +97,6 @@
                     location.href = 'home.jsp';
                 } else {
                     alert("Incorrect username/password!");
-                    // location.href = 'index.jsp';
                 }
 
             }
@@ -116,18 +116,36 @@
                 }),
                 success: (response) => {
                     console.log(response);
-
-                    // l.addEventListener("click",()=>{
-                    //     setTimeout(()=>
-                    //         {a.style.transform="scaleX(0)";}
-                    //         ,1500)
-                    //     a.style.transform="scaleX(1)";
-                    // })
+                    a.style.transformOrigin="top";
+                    setTimeout(()=>
+                        {
+                            a.style.transformOrigin="bottom";
+                            a.style.transform="scaleY(0)";}
+                        ,2000)
+                    a.style.backgroundColor="lawngreen";
+                    a.textContent=RegsitractionSuccessMsg;
+                    a.style.transform="scaleY(1)";
                 },
                 error: (response) => {
-                    console.log(typeof(response.responseJSON));
-                    console.log(JSON.stringify(response.responseJSON));
-                    alert('error in Registered ! Please try again');
+                    console.log(response.responseJSON);
+                    a.style.transformOrigin="top";
+                    if(Object.values(response.responseJSON)[0]==0)
+                    {
+                        a.textContent=RegistrationFailMsg;
+                        a.style.backgroundColor='red';
+                    }
+                    else
+                    {
+                        a.textContent=RegistrationAlertMsg;
+                        a.style.backgroundColor='red';
+                    }
+                    setTimeout(()=>
+                        {
+                            a.style.transformOrigin="bottom";
+                            a.style.transform="scaleY(0)";
+                           }
+                        ,2000)
+                    a.style.transform="scaleY(1)";
                 }
             }
         )
