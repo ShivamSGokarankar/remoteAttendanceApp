@@ -15,6 +15,7 @@ import org.hibernate.tool.schema.extract.spi.InformationExtractor;
 
 import java.io.IOException;
 
+@SuppressWarnings("serial")
 @WebServlet(urlPatterns = {"/api/*"})
 public class ControllerServlet extends HttpServlet {
         LogFileCreator l;

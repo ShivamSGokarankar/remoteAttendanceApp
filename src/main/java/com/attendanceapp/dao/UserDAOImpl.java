@@ -38,7 +38,7 @@ public class UserDAOImpl implements UserDAO {
         }
         catch (Exception e )
         {
-
+        	
         }
     }
 
@@ -82,6 +82,7 @@ public class UserDAOImpl implements UserDAO {
         catch (Exception e)
         {
             e.printStackTrace();
+            return null;
         }
         finally {
             return u;

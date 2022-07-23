@@ -56,7 +56,7 @@ var a =document.getElementById("alertbar");
         var element = document.getElementById('Confirm-password')
         element.type = 'text';
     }
-
+;;
     function matchPassword() {
         var pass1 = document.getElementById('password').value;
         var pass2 = document.getElementById('Confirm-password').value;
