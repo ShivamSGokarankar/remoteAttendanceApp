@@ -2,6 +2,7 @@ package com.attendanceapp.controller;
 
 import com.attendanceapp.model.UserDTO;
 import com.attendanceapp.Service.UserService;
+import com.attendanceapp.Util.HibernateUtil;
 import com.attendanceapp.Util.InfoMessage;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -11,13 +12,17 @@ import com.logger.LogFileCreator;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.tool.schema.extract.spi.InformationExtractor;
 
 import java.io.IOException;
 
 @SuppressWarnings("serial")
 @WebServlet(urlPatterns = {"/api/*"})
-public class ControllerServlet extends HttpServlet {
+@WebListener
+public class ControllerServlet  extends HttpServlet implements ServletContextListener  {
         LogFileCreator l;
         HttpServletRequest request;
         HttpServletResponse response;
@@ -34,6 +39,22 @@ public class ControllerServlet extends HttpServlet {
     }
 
     @Override
+	public void contextInitialized(ServletContextEvent sce) {
+		// TODO Auto-generated method stub
+    	System.out.println("\nCalled#@#@#@##@#@##@#@#@#@#@#@#@#@#@#@##@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@##\n");
+    	ServletContext servletContext = sce.getServletContext();
+    	HibernateUtil.getSessionFactory();
+    	//servletContext.setAttribute("SessionFactory", SF);
+		
+	}
+
+	@Override
+	public void contextDestroyed(ServletContextEvent sce) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
         final String request_path=request.getPathInfo();

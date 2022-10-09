@@ -22,6 +22,7 @@ public class HibernateUtil
 
     static
     {
+    	
         try {
             if(serviceRegistry==null)
             {
