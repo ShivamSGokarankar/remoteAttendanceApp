@@ -84,7 +84,7 @@ var a =document.getElementById("alertbar");
             method: 'POST',
             data: JSON.stringify(
                 {
-                    username: $('#username-field').val(),
+					username: $('#username-field').val(),
                     password: $('#password-field').val()
                 }),
             contentType: 'application/json; charset=utf-8',

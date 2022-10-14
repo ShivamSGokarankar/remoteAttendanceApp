@@ -18,20 +18,20 @@ import org.hibernate.SessionFactory;
 import org.hibernate.tool.schema.extract.spi.InformationExtractor;
 
 import java.io.IOException;
+import java.util.List;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = {"/api/*"})
+@WebServlet(urlPatterns = { "/api/*" })
 @WebListener
-public class ControllerServlet  extends HttpServlet implements ServletContextListener  {
-        LogFileCreator l;
-        HttpServletRequest request;
-        HttpServletResponse response;
+public class ControllerServlet extends HttpServlet implements ServletContextListener {
+    LogFileCreator l;
+    HttpServletRequest request;
+    HttpServletResponse response;
 
     @Override
-    public void init() throws ServletException
-    {
+    public void init() throws ServletException {
         try {
-            l=new LogFileCreator("D:\\logs");
+            l = new LogFileCreator("D:\\logs");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -39,47 +39,47 @@ public class ControllerServlet  extends HttpServlet implements ServletContextLis
     }
 
     @Override
-	public void contextInitialized(ServletContextEvent sce) {
-		// TODO Auto-generated method stub
-    	System.out.println("\nCalled#@#@#@##@#@##@#@#@#@#@#@#@#@#@#@##@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@##\n");
-    	ServletContext servletContext = sce.getServletContext();
-    	HibernateUtil.getSessionFactory();
-    	//servletContext.setAttribute("SessionFactory", SF);
-		
-	}
+    public void contextInitialized(ServletContextEvent sce) {
+        // TODO Auto-generated method stub
+        System.out.println("\nHibernate Initializing......\n");
+        ServletContext servletContext = sce.getServletContext();
+        HibernateUtil.getSessionFactory();
+        // servletContext.setAttribute("SessionFactory", SF);
 
-	@Override
-	public void contextDestroyed(ServletContextEvent sce) {
-		// TODO Auto-generated method stub
-		
-	}
+    }
 
-	@Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-    {
-        final String request_path=request.getPathInfo();
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        final String request_path = request.getPathInfo();
         String RequestBody = (request.getReader().lines().reduce("", String::concat)).replaceAll("\\s", "");
         l.WriteLog(InfoMessage.Request.toString() + " : " + RequestBody);
-        UserDTO userDTO = new GsonBuilder().create().fromJson(RequestBody,UserDTO.class);
-        this.request=request;
-        this.response=response;
-        switch (request_path)
-        {
+        UserDTO userDTO = new GsonBuilder().create().fromJson(RequestBody, UserDTO.class);
+        this.request = request;
+        this.response = response;
+        switch (request_path) {
             case "/userlogin":
                 validateUser(userDTO);
                 break;
             case "/usersignup":
                 registerUser(userDTO);
+                break;
+            case "/getAllUsers":
+                getAllUsers();
         }
     }
 
-    public void validateUser(UserDTO userDTO)
-    {
+    public void validateUser(UserDTO userDTO) {
         UserService service = new UserService();
         try {
-            UserDTO fetchedUserDTO=service.getUser(userDTO);
-            if(fetchedUserDTO!=null)
-            {
+            UserDTO fetchedUserDTO = service.getUser(userDTO);
+            if (fetchedUserDTO != null) {
 //                Gson gson = new GsonBuilder().create();
 //                String jsondata=gson.toJson(fetchedUserDTO);
 //                l.WriteLog(InfoMessage.User_Logged_In.name());
@@ -87,45 +87,38 @@ public class ControllerServlet  extends HttpServlet implements ServletContextLis
 //            l.WriteLog(InfoMessage.Response.toString() + " : " + jsondata.replaceAll("\\s", ""));
                 Gson gson = new Gson();
                 JsonElement jsonElement = gson.toJsonTree(fetchedUserDTO);
-                jsonElement.getAsJsonObject().addProperty("LoginFlag","TRUE");
+                jsonElement.getAsJsonObject().addProperty("LoginFlag", "TRUE");
                 jsonElement.getAsJsonObject().remove("password");
                 l.WriteLog(InfoMessage.Response.name() + " : " + gson.toJson(jsonElement));
                 this.response.getWriter().write(gson.toJson(jsonElement));
 
-            }
-            else
-            {
-                //redirect to login page
+            } else {
+                // redirect to login page
                 l.WriteLog(InfoMessage.User_Not_Found.name());
                 l.WriteLog(InfoMessage.Invalid_Username_OR_Password.name());
                 Gson gson = new Gson();
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("LoginFlag","FALSE");
+                jsonObject.addProperty("LoginFlag", "FALSE");
                 this.response.getWriter().write(gson.toJson(jsonObject));
             }
-        }
-        catch (NullPointerException a)
-        {
+        } catch (NullPointerException a) {
             l.WriteLog(InfoMessage.Error_Occured_While_fetching_user.name());
-        }
-        catch ( IOException e)
-        {
+        } catch (IOException e) {
             l.WriteLog("Error occured while generating response.");
         }
     }
 
     public void registerUser(UserDTO userDTO) throws IOException {
-       UserService service = new UserService();
-       UserDTO fetchedUser= service.getUser(userDTO);
-       response.setContentType("application/json");
+        UserService service = new UserService();
+        UserDTO fetchedUser = service.getUser(userDTO);
+        response.setContentType("application/json");
         try {
             JsonObject jsonObject = new JsonObject();
             if (fetchedUser == null) {
                 boolean flag = service._insertUser(userDTO);
 
-
                 if (flag) {
-                    jsonObject.addProperty("RegistrationFlag","1");
+                    jsonObject.addProperty("RegistrationFlag", "1");
                     this.response.getWriter().write(new Gson().toJson(jsonObject));
                 } else {
 
@@ -138,12 +131,20 @@ public class ControllerServlet  extends HttpServlet implements ServletContextLis
                 jsonObject.addProperty("RegistrationFlag", "-1");
                 this.response.getWriter().write(new Gson().toJson(jsonObject));
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-}
+    public void getAllUsers() throws IOException {
+        UserService userService = new UserService();
+        List<UserDTO> allusers = userService._getUsers();
+        JsonObject jsonObject = new JsonObject();
+        String json = new Gson().toJson(allusers);
+        response.setContentType("application/json");
+        if (allusers != null) {
+            this.response.getWriter().write(json);
+        }
 
+    }
+}

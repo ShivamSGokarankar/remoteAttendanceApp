@@ -1,23 +1,25 @@
 package com.attendanceapp.model;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "Usermaster")
-public class User
-{
+public class User {
     @Id
     @GeneratedValue(generator = "increment")
     private long user_id;
     @Id
     private String username;
     private String password;
-    private int user_status=1;
-    private int isLoggedIn=0;
+    private int user_status = 1;
+    private int isLoggedIn = 0;
 
-    public User()
-    {
+    public User() {
 
     }
 
@@ -80,9 +82,8 @@ public class User
                 '}';
     }
 
-    public UserDTO ConvertToUserDTO(User user)
-    {
-        UserDTO userDTO= new UserDTO();
+    public UserDTO ConvertToUserDTO(User user) {
+        UserDTO userDTO = new UserDTO();
         userDTO.setUser_id(user.getUser_id());
         userDTO.setUser_status(user.getUser_status());
         userDTO.setUsername(user.getUsername());
@@ -91,5 +92,13 @@ public class User
         return userDTO;
     }
 
+    public List<UserDTO> ConvertToUserDTOList(List<User> userList) {
+        List<UserDTO> userDTOList = new ArrayList<UserDTO>();
+        for (Iterator<User> u = userList.iterator(); u.hasNext();) {
+            System.out.println(u.getClass().getName());
+            userDTOList.add(ConvertToUserDTO(u.next()));
+        }
+        return userDTOList;
+    }
 
 }

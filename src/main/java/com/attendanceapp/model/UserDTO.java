@@ -1,15 +1,13 @@
 package com.attendanceapp.model;
 
-public class UserDTO
-{
+public class UserDTO {
     private long user_id;
     private String username;
     private String password;
     private int user_status;
     private int isLoggedIn;
 
-    public UserDTO()
-    {
+    public UserDTO() {
 
     }
 
@@ -72,9 +70,8 @@ public class UserDTO
                 '}';
     }
 
-    public static User ConvertToUser(UserDTO userDTO)
-    {
-        User user= new User();
+    public static User ConvertToUser(UserDTO userDTO) {
+        User user = new User();
         user.setUser_id(userDTO.getUser_id());
         user.setUser_status(userDTO.getUser_status());
         user.setUsername(userDTO.getUsername());

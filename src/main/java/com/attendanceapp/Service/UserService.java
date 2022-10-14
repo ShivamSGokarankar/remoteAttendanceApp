@@ -12,55 +12,51 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
-public class UserService
-{
+public class UserService {
     public static UserDAO userDAO = UserDAOFactory.getInstance();
-    LogFileCreator l ;
+    LogFileCreator l;
     {
         try {
-                l=new LogFileCreator("D:\\logs");
-            }
-            catch (IOException e) {
+            l = new LogFileCreator("D:\\logs");
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    public boolean _insertUser(UserDTO userDTO)
-    {
-            User user=UserDTO.ConvertToUser(userDTO);
-            user.setUser_status(1);
-            userDAO.createUser(user);
-            return true;
+    public boolean _insertUser(UserDTO userDTO) {
+        User user = UserDTO.ConvertToUser(userDTO);
+        user.setUser_status(1);
+        userDAO.createUser(user);
+        return true;
     }
 
-    public List<UserDTO> _getUsers()
-    {
-        return null;
+    public List<UserDTO> _getUsers() {
+        UserDTO fetchedUserDTO = null;
+        List<User> userlist = userDAO.getAllUsers();
+
+        return new User().ConvertToUserDTOList(userlist);
     }
 
-    public int _updateUser(UserDTO userDTO)
-    {
+    public int _updateUser(UserDTO userDTO) {
         return 0;
     }
 
-    public boolean _deleteUser(UserDTO userDTO)
-    {
+    public boolean _deleteUser(UserDTO userDTO) {
         return false;
     }
 
-    public UserDTO getUser(UserDTO userDTO) throws NullPointerException,NoClassDefFoundError,IllegalArgumentException {
+    public UserDTO getUser(UserDTO userDTO)
+            throws NullPointerException, NoClassDefFoundError, IllegalArgumentException {
         String username = userDTO.getUsername();
         String password = userDTO.getPassword();
         User user = UserDTO.ConvertToUser(userDTO);
         User fetchedUser = null;
         fetchedUser = userDAO.getUser(user);
-        UserDTO fetchedUserDTO =null;
-        if (fetchedUser != null)
-        {
-            fetchedUserDTO=fetchedUser.ConvertToUserDTO(fetchedUser);
-            if (username.equals(fetchedUserDTO.getUsername()) && password.equals(fetchedUserDTO.getPassword()))
-            {
+        UserDTO fetchedUserDTO = null;
+        if (fetchedUser != null) {
+            fetchedUserDTO = fetchedUser.ConvertToUserDTO(fetchedUser);
+            if (username.equals(fetchedUserDTO.getUsername()) && password.equals(fetchedUserDTO.getPassword())) {
                 return fetchedUserDTO;
             }
             return null;
@@ -69,6 +65,5 @@ public class UserService
         l.WriteLog(InfoMessage.User_Not_Found.name());
         return null;
     }
-
 
 }

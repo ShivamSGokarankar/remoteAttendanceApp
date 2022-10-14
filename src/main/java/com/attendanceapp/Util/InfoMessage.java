@@ -1,7 +1,6 @@
 package com.attendanceapp.Util;
 
-public enum InfoMessage
-{
+public enum InfoMessage {
     User_Logged_In,
     User_Found,
     User_Not_Found,

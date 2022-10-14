@@ -11,8 +11,7 @@ import org.hibernate.service.ServiceRegistry;
 
 import java.io.IOException;
 
-public class HibernateUtil
-{
+public class HibernateUtil {
     private static SessionFactory sessionFactory;
     private static Configuration configuration;
     private static ServiceRegistry serviceRegistry;
@@ -20,14 +19,12 @@ public class HibernateUtil
     private static StandardServiceRegistryBuilder standardServiceRegistryBuilder;
     private static LogFileCreator logFileCreator = null;
 
-    static
-    {
-    	
+    static {
+
         try {
-            if(serviceRegistry==null)
-            {
-                logFileCreator=new  LogFileCreator("D:\\Logs");
-                standardServiceRegistry= new StandardServiceRegistryBuilder()
+            if (serviceRegistry == null) {
+                logFileCreator = new LogFileCreator("D:\\Logs");
+                standardServiceRegistry = new StandardServiceRegistryBuilder()
                         .configure()
                         .build();
                 sessionFactory = new MetadataSources(standardServiceRegistry)
@@ -36,15 +33,13 @@ public class HibernateUtil
         } catch (HibernateException | IOException e) {
             logFileCreator.WriteLog("Error Occured while creating session Factory");
             logFileCreator.WriteLog(e.toString());
-            if(sessionFactory==null)
-            {
+            if (sessionFactory == null) {
                 StandardServiceRegistryBuilder.destroy(serviceRegistry);
             }
         }
     }
 
-    public static SessionFactory getSessionFactory()
-    {
+    public static SessionFactory getSessionFactory() {
         return sessionFactory;
     }
 
